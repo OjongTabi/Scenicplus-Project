@@ -12,21 +12,18 @@ library(dplyr)
 # Path to input and output files
 input_rds <- "/n/sci/SCI-004375-NYUDATA/Kenzie/Multiome-Merged.rds"
 output_dir <- "/n/sci/SCI-004375-NYUDATA/Ojong/scenicplus_project/data/GEX_h5ad/Comprehensive/P24_P48_Adult/"
-file_path_cell_type <- "/n/sci/SCI-004375-NYUDATA/Data/Multiome/metacluster-identities-final-5.23.24.xlsx" # External RNA cell type annotation
 
 multiome_merged <- readRDS(input_rds)
 
-data <- read_excel(file_path_cell_type) %>% 
-  slice(-38) # Remove the second header in file
+for (i in setdiff(unique(multiome_merged$metacluster.idents), c("M13", "0", "P0"))) { # Ozel21_Adult had only one cell, Zipursky_P84/P96 had none, so all three were excluded from merging for M13 as Seurat's merge() requires more than one cell. 
 
-for (i in setdiff(seq_len(nrow(data)), 13)) { # Skip M13 as there are merging issues
   
-  metacluster <- data$Metacluster[i]
-  # Extract cell cluster IDs
-  cell_ids <- as.numeric(unlist(strsplit(data$`Cluster Identities (Clusters)`[i], ",\\s*")))
   
-  multiome_data <- subset(multiome_merged, subset = metacluster.idents == metacluster)
+  multiome_data <- subset(multiome_merged, subset = metacluster.idents == i)
   DefaultAssay(multiome_data) <- "RNA"
+  
+  # Extract cell cluster IDs
+  cell_ids <- unique(multiome_data$Clusters)
   
   # Load Ozel21 objects
   rds_directory <- "/n/sci/SCI-004375-NYUDATA/Data/Ozel21"
@@ -44,7 +41,7 @@ for (i in setdiff(seq_len(nrow(data)), 13)) { # Skip M13 as there are merging is
     
     # Subset Ozel21 objects
     seurat_obj <- subset(seurat_obj, subset = MultiomeNN %in% cell_ids)
-     
+    
     assign(base_name, seurat_obj)
     
   }
@@ -109,7 +106,7 @@ for (i in setdiff(seq_len(nrow(data)), 13)) { # Skip M13 as there are merging is
   
   dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
   
-  output_path <- paste0(output_dir, metacluster, "_Comprehensive_RNA.h5Seurat")
+  output_path <- paste0(output_dir, i, "_Comprehensive_RNA.h5Seurat")
   
   SaveH5Seurat(rna_seurat_object, filename = output_path, overwrite = TRUE)
   
