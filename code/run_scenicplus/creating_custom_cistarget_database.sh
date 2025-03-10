@@ -10,6 +10,10 @@
 # Add current directory to PATH for easy access to local executables
 export PATH=$PWD:$PATH
 
+source ~/miniforge3/etc/profile.d/conda.sh 
+conda activate scenicplus_v1.0a2 
+export PYTHONHASHSEED=42 
+
 # Set paths and variables
 PATH_TO_REGIONS=$1
 GENOME_FASTA="/n/sci/SCI-004375-NYUDATA/working/10XDrosophila-ARC/fasta/genome.fa"

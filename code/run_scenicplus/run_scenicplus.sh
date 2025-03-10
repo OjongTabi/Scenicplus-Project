@@ -7,6 +7,10 @@
 # 3. Database prefix
 # ---------------------------------------------------------------------
 
+source ~/miniforge3/etc/profile.d/conda.sh 
+conda activate scenicplus_v1.0a2 
+export PYTHONHASHSEED=42
+
 # Set error handling and output display
 set -e
 echo "Starting SCENIC+ pipeline setup and data preprocessing..."
@@ -90,6 +94,7 @@ updated_config_str = updated_config_str.replace("ctx_db_fname: ''", f"ctx_db_fna
 updated_config_str = updated_config_str.replace("dem_db_fname: ''", f"dem_db_fname: '${DEM_DB_PATH}'")
 updated_config_str = updated_config_str.replace("path_to_motif_annotations: ''", f"path_to_motif_annotations: '${MOTIF_ANNOTATION_PATH}'")
 updated_config_str = updated_config_str.replace("temp_dir: ''", "temp_dir: '/tmp/'")
+#updated_config_str = updated_config_str.replace("n_cpu: 40", "n_cpu: 1")
 
 with open(config_path, 'w') as file:
     file.write(updated_config_str)
@@ -104,5 +109,5 @@ cp "${GENOME_ANNOTATION_PATH}/chromsizes.tsv" "${SCPLUS_PIPELINE_DIR}/Snakemake/
 
 cd "${WORK_DIR}/scplus_pipeline/Snakemake"
 
-snakemake all --cores 20 --latency-wait 60
+snakemake all --cores 20 --force-use-threads --latency-wait 60
 

@@ -31,7 +31,7 @@ for metacluster in "${METACLUSTERS[@]}"; do
 # Load Conda
 source ~/miniforge3/etc/profile.d/conda.sh
 conda activate scenicplus_v1.0a2
-
+export PYTHONHASHSEED=42
 
 # Run the SCENIC+ script
 $RUN_SCRIPT $MULTIOME_RUN_PATH $COMPREHENSIVE_DATA_PATH $OUTPUT_PATH $metacluster

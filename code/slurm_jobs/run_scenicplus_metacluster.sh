@@ -29,6 +29,7 @@ for metacluster in "${metaclusters[@]}"; do
 
 source ~/miniforge3/etc/profile.d/conda.sh
 conda activate scenicplus_v1.0a2
+export PYTHONHASHSEED=42
 
 echo "Processing $metacluster"
 
