@@ -80,6 +80,7 @@ scenicplus grn_inference TF_to_gene \
     --n_cpu 40 \
     --seed 666
 
+# Using rho_threshold = 0.07 for P24_P48 and 0.06 for P24_P48_Adult in eGRN extended inference only for M13 because splitting at 0.05 results in an empty output, causing an error.
 scenicplus grn_inference eGRN \
     --is_extended \
     --TF_to_gene_adj_fname "$OUT_DIR/tf_to_gene_adj.tsv" \
@@ -95,7 +96,6 @@ scenicplus grn_inference eGRN \
     --top_n_regionTogenes_per_gene 5 10 15 \
     --top_n_regionTogenes_per_region  \
     --min_regions_per_gene 0 \
-    # Using rho_threshold = 0.07 for P24_P48 and 0.06 for P24_P48_Adult in eGRN extended inference only for M13 because splitting at 0.05 results in an empty output, causing an error.
     --rho_threshold 0.05 \
     --min_target_genes 5 \
     --n_cpu 40
@@ -119,7 +119,7 @@ scenicplus grn_inference eGRN \
     --quantiles 0.85 0.90 0.95 \
     --top_n_regionTogenes_per_gene 5 10 15 \
     --top_n_regionTogenes_per_region  \
-    --min_regions_per_gene 0 \ 
+    --min_regions_per_gene 0 \
     --rho_threshold 0.05 \
     --min_target_genes 5 \
     --n_cpu 40

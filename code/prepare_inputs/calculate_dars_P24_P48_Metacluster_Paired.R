@@ -65,7 +65,7 @@ for (group in selected_metaclusters) {
   all.markers <- unique(DARs_filtered$gene)
   consensus <- StringToGRanges(all.markers)
   consensus <- sort(consensus)
-  export.bed(consensus, con = paste0(output_dir, "P24_P48_Adult_peaks.bed"))
+  export.bed(consensus, con = paste0(output_dir, "P24_P48_peaks.bed"))
   
   # Export BED files for each unique cluster
   unique_clusters <- unique(DARs_filtered$cluster)
