@@ -84,7 +84,7 @@ with open(config_path, 'r') as file:
 config_str = yaml.dump(config_data)
 updated_config_str = config_str.replace("search_space_downstream: 1000 150000", "search_space_downstream: 1000 50000")
 updated_config_str = updated_config_str.replace("search_space_upstream: 1000 150000", "search_space_upstream: 1000 50000")
-#updated_config_str = updated_config_str.replace("min_target_genes: 10", "min_target_genes: 5")
+updated_config_str = updated_config_str.replace("min_target_genes: 10", "min_target_genes: 5")
 updated_config_str = updated_config_str.replace("species: homo_sapiens", "species: drosophila_melanogaster")
 updated_config_str = updated_config_str.replace("species: hsapiens", "species: dmelanogaster")
 updated_config_str = updated_config_str.replace("cisTopic_obj_fname: ''", f"cisTopic_obj_fname: '${cisTopic_path}'")
