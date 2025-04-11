@@ -69,7 +69,8 @@ scenicplus prepare_data prepare_GEX_ACC \
     --GEX_anndata_fname "$NORMALIZED_DATA_PATH" \
     --out_file "$OUT_DIR/ACC_GEX.h5mu" \
     --is_not_multiome \
-    --key_to_group_by AnnotatedJul24
+    --key_to_group_by AnnotatedJul24 \
+    --nr_cells_per_metacells 1 
 
 scenicplus grn_inference TF_to_gene \
     --multiome_mudata_fname "$OUT_DIR/ACC_GEX.h5mu" \

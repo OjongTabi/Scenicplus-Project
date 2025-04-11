@@ -27,8 +27,8 @@ create_scatter_plot <- function(file, label) {
   
   data <- data %>%
   mutate(Annotation = case_when(
-    Multiome_Corr != 0 & Comprehensive_Corr == 0 ~ "Multiome only",
-    Multiome_Corr == 0 & Comprehensive_Corr != 0 ~ "Comprehensive only",
+    Multiome_Corr != 0 & Comprehensive_Corr == 0 ~ "Multiome_Corr",
+    Multiome_Corr == 0 & Comprehensive_Corr != 0 ~ "Comprehensive_Corr",
     Multiome_Corr != 0 & Comprehensive_Corr != 0 ~ "Common",
     TRUE ~ "None"
   ))
