@@ -8,13 +8,14 @@ library(GenomicRanges)
 library(rtracklayer)
 
 
-input_file <- ("/n/sci/SCI-004375-NYUDATA/Data/Multiome/P0/Dm/P0-Dm-M24.rds")
-output_dir <-("/n/sci/SCI-004375-NYUDATA/Ojong/scenicplus_project/data/dars/P24_P48_Adult/P0_Dm_M24")
+input_file <- ("//n/sci/SCI-004375-NYUDATA/Data/Multiome/P0/Tm/P0-Tm-M28.rds")
+output_dir <-("/n/sci/SCI-004375-NYUDATA/Ojong/scenicplus_project/data/dars/P24_P48_Adult/P0-Tm-M28_Without_NB_NE")
 dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
 
 atac_data <- readRDS(input_file)
 
 DefaultAssay(atac_data) <- "ATAC"
+atac_data <- subset(atac_data, idents = setdiff(levels(atac_data), c("NE-OPC", "NB-OPC")))
 
 # Find Differentially Accessible Regions (DARs)
 DARs <- FindAllMarkers(
@@ -24,8 +25,7 @@ DARs <- FindAllMarkers(
   test.use = 'LR',
   latent.vars = 'atac_peak_region_fragments',
   logfc.threshold = 0.5, 
-  min.pct = 0.05,
-  return.thresh = 0.05
+  min.pct = 0.05
 )
 
 
